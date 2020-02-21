@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% block content %}
+<form action="/" method="POST">
+{% csrf_token %}
+<div class="form-row">
+    {% if form.title.errors %}
+    {% for err_title in form.title.errors %}
+    <p>{{ err_title | escape}}</p>
+    {% endfor %}
+    {% endif %}
+    {% if form.content.errors %}
+    {% for err_content in form.content.errors %}
+    <p>{{ err_content | escape}}</p>
+    {% endfor %}
+    {% endif %}
+ {% for f in form %}
+ <p>{{ f.label_tag }}</p>
+ 
+ <p>{{f}}</p>
+ {% endfor %}
+</div>
+<input type="submit" value="Add Posts">
+</form>
+<div >
+    {% for row in rows %}
+    <h2>{{row.title}}</h2>
+    <p>{{row.content}} -<small> {{row.created_at}}</small></p>
+    {% endfor %}
+</div>
+<div >
+    {% for category in categories %}
+    <h2>{{category.title}}<small>{{category.created_at}}</small></h2>
+    
+    {% endfor %}
+</div>
+{%endblock%}
